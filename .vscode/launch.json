@@ -5,6 +5,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
+<<<<<<< HEAD
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
@@ -21,4 +22,8 @@
       ]
     }
   ]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

@@ -5,6 +5,7 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
+<<<<<<< HEAD
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "${default}",
       "cppStandard": "${default}",
@@ -12,6 +13,13 @@
       "compilerArgs": [
         ""
       ]
+
+
+
+
+
+
+
     }
   ],
   "version": 4
