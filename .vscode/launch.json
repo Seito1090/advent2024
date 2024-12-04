@@ -5,12 +5,11 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-<<<<<<< HEAD
-      "args": [],
+      "args": ["<","1.in"],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/seito/Documents/Coding/advent/day1",
-      "program": "/home/seito/Documents/Coding/advent/day1/build/Debug/outDebug",
+      "cwd": "/home/seito/Documents/Coding/advent/day3",
+      "program": "/home/seito/Documents/Coding/advent/day3/day3",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
@@ -22,8 +21,4 @@
       ]
     }
   ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

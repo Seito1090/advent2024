@@ -4,27 +4,19 @@ using namespace std;
 int main(){
     string line;
     smatch match;
-    getline(cin,line);
+    int sum = 0;
     regex str_expr(R"(mul\((\d{1,3}),(\d{1,3})\))");
 
-    // Create a regex_iterator to loop over all matches
-    regex_iterator<string::iterator> rit(line.begin(), line.end(), str_expr);
-    regex_iterator<string::iterator> rend;
-
     // Loop over all matches
-    while (rit != rend) {
-        // Print the full match
-        cout << "Full match: " << rit->str(0) << endl;
-
-        // Print the start index of the match
-        cout << "Start index: " << rit->position(0) << endl;
-
-        // Print the captured groups (x and y values)
-        cout << "x = " << rit->str(1) << ", y = " << rit->str(2) << endl;
-
-        // Move to the next match
-        ++rit;
+    while (getline(cin,line)){
+        regex_iterator<string::iterator> rit(line.begin(), line.end(), str_expr);
+        regex_iterator<string::iterator> rend;
+        while (rit != rend) {
+            sum += stoi(rit->str(1)) * stoi(rit->str(2));
+            // Move to the next match
+            ++rit;
+        }
     }
-    cout<<"hey"<<endl;
+    cout<<sum<<endl;
     return 0;
 }
