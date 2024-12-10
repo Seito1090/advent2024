@@ -5,7 +5,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["<","1.in"],
+      "args": ["<", "1.in"],
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/seito/Documents/Coding/advent/day5",

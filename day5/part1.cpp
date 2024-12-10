@@ -11,18 +11,23 @@ class PageList{
     private:
         vector<Page> pages;
     public:
-        Page* hasPage(int page){
-            for (Page p : pages){
-                if (p.number == page) return &p;
+        Page* getPage(int page){
+            for (Page& p : pages){ // Iterate by reference
+                if (p.number == page) return &p; // Address of the object in the vector
             }
             return NULL;
+        }
+        bool hasPage(int nbr){
+            for (Page p : pages){
+                if (p.number == nbr) return true;
+            }
+            return false;
         }
         void putPage(Page page){ pages.push_back(page);}
 };
 
-void getinput(vector<Page>* ptr_pages){
+PageList getinput(vector<string>* ptr_input){
     vector<string> orderingPart;
-    vector<string> inputPart;
     string line;
     regex str_expr(R"((\d{2})|(\d{2}))");
     bool split = false;
@@ -32,22 +37,19 @@ void getinput(vector<Page>* ptr_pages){
         if (rit==rend){
             split = true;
         }
-        cout<<split<<endl;
-        if (split && line != "") inputPart.push_back(line);
+        if (split && line != "") (*ptr_input).push_back(line);
         else if (line != "") orderingPart.push_back(line);
     }
-    cout<<"yahoo"<<endl;
     //Creating pages
     PageList pages;
     for (string page : orderingPart){
         int a = page.find("|");
         int nb_1 = stoi(page.substr(0,a));
         page.erase(0,a+1);
-        cout<<page<<endl;
         int nb_2 = stoi(page);
         //Check if page already there
         Page* ptr_page;
-        if ((ptr_page = pages.hasPage(nb_1)) == NULL){
+        if ((ptr_page = pages.getPage(nb_1)) == NULL){
             Page newPage;
             newPage.number = nb_1;
             newPage.numbersAfter.push_back(nb_2);
@@ -59,12 +61,70 @@ void getinput(vector<Page>* ptr_pages){
             }
         }
     }
-    cout<<"ordering part treated"<<endl;
+    
+    return pages;
+}
+
+vector<int> my_split(string line , string delimiter){
+    vector<int> values;
+    if (line == "") return values;
+    int pos = 0;
+    while ((pos = line.find(delimiter)) != EOF){
+        values.push_back(stoi(line.substr(0, pos)));
+        line.erase(0, pos+delimiter.size());
+    }
+    values.push_back(stoi(line));
+    return values;
+}
+
+void check_input(vector<string>* ptr_input, PageList* ptr_pages){
+    int linePos = 0;
+    string line;
+    int init_size = (*ptr_input).size();
+    for (int _ = 0; _ < init_size; _++){
+        line = (*ptr_input).at(linePos);
+        //split line into ints 
+        vector<int> values = my_split(line, ",");
+        if (values.size() == 0) {
+            cout<<"CYA"<<endl;
+            return;
+        }
+        //check each position 
+        bool lineDel = false;
+        for (int a = 0; a < values.size(); a++){
+            if ((*ptr_pages).hasPage((values.at(a)))){
+                Page* to_check = (*ptr_pages).getPage((values.at(a)));
+                for (int b = a; b >= 0; b--){
+                    auto occ = find((*to_check).numbersAfter.begin(), (*to_check).numbersAfter.end(), values.at(b));
+                    if (occ != (*to_check).numbersAfter.end()) {
+                        lineDel = true;
+                        break;
+                    }
+                }
+            }
+        }
+        //delete the line if needed
+        if (lineDel) {(*ptr_input).erase((*ptr_input).begin()+linePos);}
+        else linePos++;
+    }
+}
+
+int calcValue(vector<string>* ptr_input){
+    int value = 0;
+    for (string line : *ptr_input){
+        vector<int> lineInt = my_split(line, ",");
+        int sz = lineInt.size();
+        value+=lineInt.at(sz/2);
+    }
+    return value;
 }
 
 int main(){
-    vector<Page> pages;
-    vector<Page>* ptr_pages = &pages;
-    getinput(ptr_pages);
+    vector<string> input;
+    vector<string>* ptr_input = &input;
+    PageList pages = getinput(ptr_input);
+    PageList* ptr_pages = &pages;
+    check_input(ptr_input, ptr_pages);
+    cout<<calcValue(ptr_input)<<endl;
     return 0;
 }
