@@ -8,8 +8,8 @@
       "args": ["<","1.in"],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/seito/Documents/Coding/advent/day4",
-      "program": "/home/seito/Documents/Coding/advent/day4/day4",
+      "cwd": "/home/seito/Documents/Coding/advent/day5",
+      "program": "/home/seito/Documents/Coding/advent/day5/day5",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
